@@ -8,20 +8,6 @@ namespace PheggCore.Discord
 {
 	public class DiscordEmbed
 	{
-		public DiscordEmbed(string title, string type, string description, string url, string timestamp, int color, EmbedThumbnail thumbnail, EmbedFooter footer, List<EmbedField> fields, EmbedAuthor author)
-		{
-			this.title = title;
-			this.type = type;
-			this.description = description;
-			this.url = url;
-			this.timestamp = timestamp;
-			this.color = color;
-			this.thumbnail = thumbnail;
-			this.footer = footer;
-			this.fields = fields;
-			this.author = author;
-		}
-
 		public string title;
 		public string type = "rich";
 		public string description;

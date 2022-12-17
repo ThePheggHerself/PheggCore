@@ -22,5 +22,11 @@ namespace PheggCore.Discord
 			this.tts = tts;
 			this.embeds = embeds;
 		}
+		public Webhook(string username, DiscordEmbed[] embeds)
+		{
+			this.username = username;
+			this.tts = false;
+			this.embeds = embeds;
+		}
 	}
 }

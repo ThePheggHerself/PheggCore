@@ -8,8 +8,9 @@ namespace PheggCore.Staff
 {
 	public class Application
 	{
-		public Application(ulong userid, string steamid, int age, int hours, string whyjoin, string whatbring, string prevexp, string department)
+		public Application(string username, string userid, string steamid, int age, int hours, string whyjoin, string whatbring, string prevexp, string department)
 		{
+			Username = username;
 			UserId = userid;
 			SteamId = steamid;
 			Age = age;
@@ -22,7 +23,8 @@ namespace PheggCore.Staff
 			AppId = new Guid().ToString();
 		}
 
-		public ulong UserId;
+		public string Username;
+		public string UserId;
 		public string SteamId;
 		public string Department;
 		public string WhyJoin;
@@ -34,5 +36,20 @@ namespace PheggCore.Staff
 		public int Hours;
 
 		public DateTime LastSent;		
+	}
+
+	public class ApplicationResponse
+	{
+		public ApplicationResponse(bool pending, string response, DateTime submitDate)
+		{
+			Pending = pending;
+			Response = response;
+			SubmitDate = submitDate;
+		}
+
+		public bool Pending;
+		public string Response;
+		public DateTime SubmitDate;
+
 	}
 }

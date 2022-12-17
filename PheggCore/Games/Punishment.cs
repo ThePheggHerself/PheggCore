@@ -10,6 +10,7 @@ namespace PheggCore.Games
 	{
 		public string Name { get; set; }
 		public string UserId { get; set; }
+		public string StaffName { get; set; }
 		public string StaffId { get; set; }
 		public string Offence { get; set; }
 		public string Punishment { get; set; }

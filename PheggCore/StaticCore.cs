@@ -23,5 +23,7 @@ namespace PheggCore
 
 		public static string PlayerStatsConnectionString { get; private set; }
 		public static string WebsiteConnectionString { get; private set; }
+
+		public static string ApiUrl { get; set; }
 	}
 }
