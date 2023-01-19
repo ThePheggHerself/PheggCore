@@ -14,11 +14,10 @@ namespace PheggCore.Staff
 		ViewSurvey = 1 << 3,
 		RequestSurvey = 1 << 4,
 		DeletePunishments = 1 << 5,
-		DeletePunishmentsOfOthers = 1 << 5,
+		DeletePunishmentsOfOthers = 1 << 6,
 		EditPunishments = 1 << 7,
 		EditPunishmentsOfOthers = 1 << 8,
 		UserNote = 1 << 9,
 		ViewPunishments = 1 << 10,
-
 	}
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PheggCore
 {
-	public static class StaticCore
+	public static class Core
 	{
 		public static void SetStrings(string playerStats, string website)
 		{
@@ -25,5 +25,6 @@ namespace PheggCore
 		public static string WebsiteConnectionString { get; private set; }
 
 		public static string ApiUrl { get; set; }
+		public static bool Debug { get; set; }
 	}
 }

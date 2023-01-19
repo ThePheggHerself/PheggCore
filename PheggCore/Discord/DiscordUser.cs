@@ -32,7 +32,7 @@ namespace PheggCore.Discord
 		{
 			get
 			{
-				return StaffData == null;
+				return StaffData != null;
 			}
 		}
 
