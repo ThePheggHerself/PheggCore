@@ -19,5 +19,7 @@ namespace PheggCore.Staff
 		EditPunishmentsOfOthers = 1 << 8,
 		UserNote = 1 << 9,
 		ViewPunishments = 1 << 10,
+		AddNewsletter = 1 << 11,
+		DelNewsletter = 1 << 12,
 	}
 }
