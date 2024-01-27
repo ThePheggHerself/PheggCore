@@ -5,7 +5,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageOutputPath>..\Package</PackageOutputPath>
 
-    <Version>1.1.5</Version>
+    <Version>1.0.6</Version>
 
     <PackageReadmeFile>README.md</PackageReadmeFile>
 
@@ -17,18 +17,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\LICENSE">
-      <Pack>True</Pack>
+    <None Include="..\LICENSE" Link="LICENSE">
       <PackagePath>\</PackagePath>
+      <Pack>True</Pack>
     </None>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
+    <None Include="..\README.md" Link="README.md">
       <PackagePath>\</PackagePath>
+      <Pack>True</Pack>
     </None>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.0" />
+    <PackageReference Include="MySql.Data" Version="8.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PheggCore\PheggCore.csproj" />
   </ItemGroup>
 
 </Project>

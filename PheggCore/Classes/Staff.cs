@@ -1,13 +1,32 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using PheggCore.Website;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace PheggCore.Staff
 {
+	public class StaffData
+	{
+		public string Name { get; set; }
+		public string UserID { get; set; }
+		public string SteamID { get; set; }
+		public WebsitePermissions WebsitePermissions { get; set; } = WebsitePermissions.None;
+		public string Department { get; set; }
+		public bool IsManagement { get; set; }
+		public string Mentor { get; set; }
+		public string ApiKey { get; set; }
+		public bool IsFormer { get; set; } = false;
+
+		public bool HasPerm(WebsitePermissions Perm)
+		{
+			return WebsitePermissions.HasFlag(Perm);
+		}
+	}
+
+
 	public class Application
 	{
 		public Application(string username, string userid, string steamid, int age, int hours, string whyjoin, string whatbring, string prevexp, string department)
@@ -76,11 +95,12 @@ namespace PheggCore.Staff
 
 	public class ApplicationResponse
 	{
-		public ApplicationResponse(bool pending, string response, DateTime submitDate)
+		public ApplicationResponse(bool pending, string response, DateTime submitDate, bool canReapply)
 		{
 			Pending = pending;
 			Response = response;
 			SubmitDate = submitDate;
+			CanReapply = canReapply;
 		}
 
 		[JsonConstructor]
@@ -88,6 +108,7 @@ namespace PheggCore.Staff
 		public bool Pending { get; set; }
 		public string Response { get; set; }
 		public DateTime SubmitDate { get; set; }
+		public bool CanReapply { get; set; }
 
 	}
 }
