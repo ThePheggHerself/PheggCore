@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using PheggCore.Classes;
+using PheggCore.Staff;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace PheggCore.Discord
 {
-	public class DiscordEmbed
+	public class Embed
 	{
 		public string title;
 		public string type = "rich";
@@ -76,5 +77,29 @@ namespace PheggCore.Discord
 		public string url;
 		public int height;
 		public int width;
+	}
+
+	public class Webhook
+	{
+		public string content;
+		public string username;
+		public string avatar_url;
+		public bool tts = false;
+		public Embed[] embeds;
+
+		public Webhook(string content, string username, string avatar_url, bool tts, Embed[] embeds)
+		{
+			this.content = content;
+			this.username = username;
+			this.avatar_url = avatar_url;
+			this.tts = tts;
+			this.embeds = embeds;
+		}
+		public Webhook(string username, Embed[] embeds)
+		{
+			this.username = username;
+			tts = false;
+			this.embeds = embeds;
+		}
 	}
 }
