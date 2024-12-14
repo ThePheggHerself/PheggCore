@@ -16,32 +16,61 @@ namespace PheggCore
 
 		public static string DateTimeFormat { get; private set; }
 
-		internal class msgObject
+		internal class MessageObject
 		{
-			internal msgObject(string msg, MessageSeverity severity)
+			internal MessageObject(string msg, string prefix, MessageSeverity severity = MessageSeverity.Info)
 			{
-				this.msg = msg;
-				this.severity = severity;
+				Message = msg;
+				Prefix = prefix;
+				Severity = severity;
 			}
-			public string msg;
-			public MessageSeverity severity;
+			public string Message;
+			public string Prefix;
+			public MessageSeverity Severity;
+
 		}
 		public enum MessageSeverity
 		{
-			Debug, Info, Warning, Error
+			Debug, Info, Warn, Error
 		}
 
-		internal static List<msgObject> _msgs = new List<msgObject>();
+		internal static List<MessageObject> _msgs = new List<MessageObject>();
 
-		public static bool Debug = false;
+		public static bool DebugMode = false;
 
 		static Logger()
 		{
-			DateTimeFormat = $"{CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern} {CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern}";
+			DateTimeFormat = $"yyyy-MM-dd HH:mm:ss";
 			PrintMessages();
 		}
 
-		public static void Write(string message, MessageSeverity severity = MessageSeverity.Info) => _msgs.Add(new msgObject(message, severity));
+		[Obsolete]
+		public static void Write(string message, MessageSeverity severity = MessageSeverity.Info) => _msgs.Add(new MessageObject(message, severity.ToString(), severity));
+
+		public static void Info(string message, string prefix = null)
+		{
+			if (string.IsNullOrEmpty(prefix))
+				prefix = MessageSeverity.Info.ToString();
+			_msgs.Add(new MessageObject(message, prefix, MessageSeverity.Info));
+		}
+		public static void Warn(string message, string prefix = null)
+		{
+			if (string.IsNullOrEmpty(prefix))
+				prefix = MessageSeverity.Warn.ToString();
+			_msgs.Add(new MessageObject(message, prefix, MessageSeverity.Warn));
+		}
+		public static void Error(string message, string prefix = null)
+		{
+			if (string.IsNullOrEmpty(prefix))
+				prefix = MessageSeverity.Error.ToString();
+			_msgs.Add(new MessageObject(message, prefix, MessageSeverity.Error));
+		}
+		public static void Debug(string message, string prefix = null)
+		{
+			if (string.IsNullOrEmpty(prefix))
+				prefix = MessageSeverity.Debug.ToString();
+			_msgs.Add(new MessageObject(message, prefix, MessageSeverity.Debug));
+		}
 
 		private static async void PrintMessages()
 		{
@@ -50,24 +79,24 @@ namespace PheggCore
 				if (_msgs.Count > 0)
 				{
 					var msg = _msgs[0];
-					switch (msg.severity)
+					switch (msg.Severity)
 					{
-						case MessageSeverity.Warning:
+						case MessageSeverity.Warn:
 							Console.ForegroundColor = ConsoleColor.Yellow;
 							break;
 						case MessageSeverity.Error:
 							Console.ForegroundColor = ConsoleColor.Red;
 							break;
 						case MessageSeverity.Debug:
-							Console.ForegroundColor = ConsoleColor.Blue;
+							Console.ForegroundColor = ConsoleColor.Cyan;
 							break;
 						default:
 							break;
 					}
 
-					if (msg.severity != MessageSeverity.Debug || (msg.severity == MessageSeverity.Debug & Debug))
+					if (msg.Severity != MessageSeverity.Debug || (msg.Severity == MessageSeverity.Debug & DebugMode))
 					{
-						var msgSTr = string.Format("[{0}] {1} | {2}", DateTime.Now.ToString(DateTimeFormat), msg.severity.ToString().ToUpper(), msg.msg);
+						var msgSTr = string.Format("[{0}] {1} | {2}", DateTime.Now.ToString(DateTimeFormat), msg.Severity.ToString().ToUpper(), msg.Message);
 
 						if (string.IsNullOrEmpty(LogFileName))
 						{
@@ -76,7 +105,7 @@ namespace PheggCore
 								Directory.CreateDirectory("./Logs");
 							}
 
-							Logger.LogFileName = $"./Logs/{Assembly.GetEntryAssembly().GetName().Name}-{DateTime.Now.ToString("yyyy-MM-dd HH:mm")}.log";
+							Logger.LogFileName = $"./Logs/{Assembly.GetEntryAssembly().GetName().Name}-{DateTime.Now.ToString("yyyy-MM-dd HH-mm")}.log";
 						}
 
 						if (!File.Exists(LogFileName))
@@ -98,7 +127,7 @@ namespace PheggCore
 
 	internal class _threadLogger
 	{
-		internal static List<msgObject> _msgs = new List<msgObject>();
+		internal static List<MessageObject> _msgs = new List<MessageObject>();
 
 
 	}
